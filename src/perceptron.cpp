@@ -1,11 +1,8 @@
-#include "perceptron.h"
-
+#include "perceptron.h" 
 Perceptron::Perceptron(){
     this->inputSize = 0;
 }
-
-int Perceptron::getInputSize(){
-    return this->inputSize;
+Perceptron:: Perceptron(int inputSize): inputSize(inputSize), weights(inputSize,0){
 }
 
 void Perceptron::init(int size){
@@ -13,21 +10,29 @@ void Perceptron::init(int size){
     this->weights = vector<int>(inputSize, 0);
 }
 
-Perceptron:: Perceptron(int inputSize): inputSize(inputSize), weights(inputSize,0){
+int Perceptron::getInputSize(){
+    return this->inputSize;
 }
 
-void Perceptron::printWeights(){
+
+string Perceptron::str(){
+    ostringstream os;
     for(int i = 0; i < this->inputSize; ++i){
-        printf("%d ", this->weights[i]);
+        if(i != this->inputSize - 1){
+            os << this->weights[i] << ", ";
+        }
+        else{
+            os << this->weights[i];
+        }
     }
-    printf("\n");
+    return os.str();
 }
 
 int Perceptron::predict(uint64_t history){
-    int sum = this->weights[0]; //initial is w0
+    int sum = this->weights[0];
     for(int i = 1; i < this->inputSize; ++i){ //w1...wn
-        unsigned char temp = history & (1 << i);
-        if(temp){
+        unsigned char value = history & (1 << i);
+        if(value){
             sum += this->weights[i];
         }
         else{
@@ -40,7 +45,16 @@ int Perceptron::predict(uint64_t history){
     return -1;
 }
 
-int Perceptron::updateWeights(int result, double theta, int expected){
-    this->weights[0]+=1;
-    return 0;
+void Perceptron::updateWeights(uint64_t history, int result, int expected, double theta){
+    if( ((result ^ expected) < 0) || abs(result) < theta){
+        for(int i = 1; i < this->inputSize; ++i){ //w1...wn
+            unsigned char value = history & (1 << i);
+            if((value && expected == 1) || (!value && expected == -1)){ 
+                this->weights[i] += 1;
+            }
+            else{
+                this->weights[i] -= 1;
+            }
+        }
+    }
 }

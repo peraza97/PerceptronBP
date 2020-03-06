@@ -3,6 +3,7 @@
 
 #include <cstdio>
 #include <vector>
+#include <sstream>
 #include "util.h"
 
 using namespace std;
@@ -20,8 +21,8 @@ class Perceptron{
         int getInputSize();
         void init(int);
         int predict(uint64_t);
-        int updateWeights(int, double, int);
-        void printWeights();
+        void updateWeights(uint64_t, int, int, double);
+        string str();
 };
 
 #endif
