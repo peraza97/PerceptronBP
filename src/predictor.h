@@ -24,6 +24,7 @@ class Predictor{
         bool debug;
         //perceptron table
         perceptronTable table;
+        double theta;
 
         uint64_t hashAddress(string);
         void updateHistory(int);

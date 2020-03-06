@@ -26,18 +26,17 @@ int main(int argc, char ** argv){
             default: exit(1);
         }
     }
-    /*
     Application app(fileName);
     app.InitApplication();
+    Predictor myPerceptron(10,10,debug);
     string address = "";
     int expected;
     while(app.getBranch(address,expected)){
-        printf("%s : %d\n", address.c_str(), expected);
+        myPerceptron.makePrediction(address,expected);
     }
-    */
-   uint64_t input = 13;
-   Perceptron p(m+1,1);
-   cout << p.predict(input) << endl;
+
+
+
 
     return 0;
 }

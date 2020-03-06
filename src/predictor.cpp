@@ -7,6 +7,11 @@ Predictor::Predictor(int globalHistory, int addressBits, bool debug){
     this->correct = 0;
     this->total = 0;
     this->debug = debug;
+    this->theta = 1.93 * this->globalHistoryLength + 14;
+
+    printf("------------------------------\n");
+    printf("Global history: %d\nAdress bits: %d\nThreshold: %.2f\n",this->globalHistoryLength, this->addressBits, this->theta);
+    printf("------------------------------\n");
 }
 
 void Predictor::updateHistory(int expected){
@@ -28,8 +33,9 @@ void Predictor::makePrediction(string input, int expected){
     }
     uint64_t prevHistory = this->history;
     uint64_t index = this->hashAddress(input); //hash the address for an index
-
-
+    //get the corresponding perceptron
+    //get the perceptron prediction
+    //update the perceptron weights
     updateHistory(expected);
     if(this->debug){
         printf("Previous History: %s\n", getBinary(prevHistory,this->globalHistoryLength).c_str());

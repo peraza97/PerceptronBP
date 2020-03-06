@@ -1,6 +1,7 @@
 #include "perceptron.h"
 
-Perceptron:: Perceptron(int inputSize, int theta): inputSize(inputSize), theta(theta), weights(inputSize,1){}
+Perceptron:: Perceptron(int inputSize): inputSize(inputSize), weights(inputSize,0){
+}
 
 void Perceptron::printWeights(){
     for(int i = 0; i < this->inputSize; ++i){
@@ -26,6 +27,6 @@ int Perceptron::predict(uint64_t history){
     return -1;
 }
 
-int Perceptron::updateWeights(int result, int expected){
+int Perceptron::updateWeights(int result, double theta, int expected){
     return 0;
 }

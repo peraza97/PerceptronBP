@@ -12,13 +12,12 @@ typedef vector<int> PerceptronWeights;
 class Perceptron{
     private:
         int inputSize;
-        int theta;
         PerceptronWeights weights;
     
     public:
-        Perceptron(int, int);
+        Perceptron(int);
         int predict(uint64_t);
-        int updateWeights(int, int);
+        int updateWeights(int, double, int);
         void printWeights();
 };
 
