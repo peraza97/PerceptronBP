@@ -1,5 +1,18 @@
 #include "perceptron.h"
 
+Perceptron::Perceptron(){
+    this->inputSize = 0;
+}
+
+int Perceptron::getInputSize(){
+    return this->inputSize;
+}
+
+void Perceptron::init(int size){
+    this->inputSize = size;
+    this->weights = vector<int>(inputSize, 0);
+}
+
 Perceptron:: Perceptron(int inputSize): inputSize(inputSize), weights(inputSize,0){
 }
 
@@ -28,5 +41,6 @@ int Perceptron::predict(uint64_t history){
 }
 
 int Perceptron::updateWeights(int result, double theta, int expected){
+    this->weights[0]+=1;
     return 0;
 }

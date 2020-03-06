@@ -33,10 +33,16 @@ void Predictor::makePrediction(string input, int expected){
     }
     uint64_t prevHistory = this->history;
     uint64_t index = this->hashAddress(input); //hash the address for an index
-    //get the corresponding perceptron
-    //get the perceptron prediction
+    //check if it is in the table
+    if(this->table[index].getInputSize() == 0){
+        this->table[index].init(this->globalHistoryLength+1);
+    }
+    //get the prediction
+    int prediction = this->table[index].predict(prevHistory);
     //update the perceptron weights
-    updateHistory(expected);
+    this->table[index].updateWeights(prediction, this->theta, expected);
+    //update history
+    this->updateHistory(expected);
     if(this->debug){
         printf("Previous History: %s\n", getBinary(prevHistory,this->globalHistoryLength).c_str());
         printf("New History     : %s\n", getBinary(this->history, this->globalHistoryLength).c_str());

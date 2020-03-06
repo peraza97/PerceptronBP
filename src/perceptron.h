@@ -15,7 +15,10 @@ class Perceptron{
         PerceptronWeights weights;
     
     public:
+        Perceptron();
         Perceptron(int);
+        int getInputSize();
+        void init(int);
         int predict(uint64_t);
         int updateWeights(int, double, int);
         void printWeights();
