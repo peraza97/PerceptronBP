@@ -34,9 +34,6 @@ int main(int argc, char ** argv){
     while(app.getBranch(address,expected)){
         myPerceptron.makePrediction(address,expected);
     }
-
-
-
-
+    myPerceptron.printRates();
     return 0;
 }

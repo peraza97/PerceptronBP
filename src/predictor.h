@@ -24,7 +24,7 @@ class Predictor{
         //perceptron table
         perceptronTable table;
         //threshold
-        double theta;
+        int theta;
         //misc
         int correct;
         int total;

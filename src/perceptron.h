@@ -14,14 +14,15 @@ class Perceptron{
     private:
         int inputSize;
         PerceptronWeights weights;
-    
+        bool debug;
+        int prevStep;
     public:
         Perceptron();
         Perceptron(int);
         int getInputSize();
-        void init(int);
+        void init(int, bool);
         int predict(uint64_t);
-        void updateWeights(uint64_t, int, int, double);
+        void updateWeights(uint64_t, int, int, int);
         string str();
 };
 
