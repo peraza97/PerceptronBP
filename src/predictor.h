@@ -10,17 +10,15 @@
 
 using namespace std;
 
-typedef uint32_t nSize_t;
+#define TABLE_SIZE 2048
 
-typedef unordered_map<nSize_t, Perceptron> perceptronTable;
+typedef unordered_map<uint32_t, Perceptron> perceptronTable;
 
 class Predictor{
     private:
         //global history
         int historyLength;
         uint64_t history; 
-        //how many bits should we address
-        int addressBits;
         //perceptron table
         perceptronTable table;
         //threshold
@@ -30,11 +28,11 @@ class Predictor{
         int total;
         bool debug;
 
-        nSize_t hashAddress(string);
+        uint32_t hashAddress(string);
         void updateHistory(int);
     
     public:
-        Predictor(int, int, bool);
+        Predictor(int, bool);
         void makePrediction(string, int);
         void printRates();
 };

@@ -1,16 +1,15 @@
 #include "predictor.h"
 
-Predictor::Predictor(int globalHistory, int addressBits, bool debug){
+Predictor::Predictor(int globalHistory, bool debug){
     this->history = 0;
     this->historyLength = globalHistory;
-    this->addressBits = addressBits;
     this->correct = 0;
     this->total = 0;
     this->debug = debug;
     this->theta = floor(1.93 * this->historyLength + 14);
 
     printf("------------------------------\n");
-    printf("Global history: %d\nAdress bits: %d\nThreshold: %d\n",this->historyLength, this->addressBits, this->theta);
+    printf("Global history: %d\nThreshold: %d\n",this->historyLength, this->theta);
     printf("------------------------------\n");
 }
 
@@ -22,8 +21,12 @@ void Predictor::updateHistory(int expected){
     history = history >> (64 - this->historyLength);
 }
 
-nSize_t Predictor::hashAddress(string address){
-    return 0;
+uint32_t Predictor::hashAddress(string address){
+    istringstream converter(address);
+    uint32_t conversion;
+    converter >> std::hex >> conversion; 
+    conversion %= TABLE_SIZE;
+    return conversion ^ (this->history % TABLE_SIZE);
 }
 
 void Predictor::makePrediction(string input, int expected){
@@ -39,7 +42,6 @@ void Predictor::makePrediction(string input, int expected){
     }
     //get the prediction
     int prediction = this->table[index].predict(prevHistory);
-    string prevWeights = this->table[index].str();
     this->table[index].updateWeights(this->history, prediction, expected, this->theta);
     
     //update history
@@ -52,7 +54,6 @@ void Predictor::makePrediction(string input, int expected){
 
     if(this->debug){
         printf("Previous History: %s\n", getBinary(prevHistory,this->historyLength).c_str());
-        printf("Previous weights: %s\n", prevWeights.c_str());
         printf("Updated  weights: %s\n", this->table[index].str().c_str());
         printf("New History     : %s\n", getBinary(this->history, this->historyLength).c_str());
         printf("Prediction: %d\n", prediction);

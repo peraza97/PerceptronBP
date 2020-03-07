@@ -33,8 +33,14 @@ string Perceptron::str(){
 
 int Perceptron::predict(uint64_t history){
     int sum = this->weights[0];
+        if(this->debug){
+            printf("Summation: %d + ", sum);
+        }
     for(int i = 1; i < this->inputSize; ++i){ //w1...wn
         unsigned char value = history & (1 << (i-1)); //check the history
+        if(this->debug){
+            printf("(%d * %d)%s", value ? 1 : -1, this->weights[i], i <this->inputSize - 1 ? " + " : " ");
+        }
         if(value){
             sum += this->weights[i];
         }
@@ -44,7 +50,7 @@ int Perceptron::predict(uint64_t history){
     }
     this->prevStep = abs(sum);
     if(this->debug){
-        printf("Sum: %d\n", sum);
+        printf("\nPrediction sum: %d\n", sum);
     }
     if(sum >= 0){
         return 1;
