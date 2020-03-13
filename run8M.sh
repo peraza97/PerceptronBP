@@ -1,0 +1,13 @@
+echo "gcc-8M.txt: History 35, Table size 1024"
+./build/perceptron -f ./text/gcc-8M.txt  -m 35 -n 1024 | grep "Misclassification rate:"
+echo "gcc-8M.txt: History 40, Table size 1024"
+./build/perceptron -f ./text/gcc-8M.txt  -m 40 -n 1024 | grep "Misclassification rate:"
+echo "gcc-8M.txt: History 45, Table size 1024"
+./build/perceptron -f ./text/gcc-8M.txt  -m 45 -n 1024 | grep "Misclassification rate:"
+echo 
+echo "gcc-8M.txt: History 40, Table size 512"
+./build/perceptron -f ./text/gcc-8M.txt  -m 40 -n 512 | grep "Misclassification rate:"
+echo "gcc-8M.txt: History 40, Table size 1024"
+./build/perceptron -f ./text/gcc-8M.txt  -m 40 -n 1024 | grep "Misclassification rate:"
+echo "gcc-8M.txt: History 40, Table size 2048"
+./build/perceptron -f ./text/gcc-8M.txt  -m 40 -n 2048 | grep "Misclassification rate:"

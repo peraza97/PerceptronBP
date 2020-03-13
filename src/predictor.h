@@ -10,8 +10,6 @@
 
 using namespace std;
 
-#define TABLE_SIZE 2048
-
 typedef unordered_map<uint32_t, Perceptron> perceptronTable;
 
 class Predictor{
@@ -21,6 +19,7 @@ class Predictor{
         uint64_t history; 
         //perceptron table
         perceptronTable table;
+        int tableSize;
         //threshold
         int theta;
         //misc
@@ -32,7 +31,7 @@ class Predictor{
         void updateHistory(int);
     
     public:
-        Predictor(int, bool);
+        Predictor(int, int, bool);
         void makePrediction(string, int);
         void printRates();
 };

@@ -1,15 +1,16 @@
 #include "predictor.h"
 
-Predictor::Predictor(int globalHistory, bool debug){
+Predictor::Predictor(int globalHistory, int tableSize, bool debug){
     this->history = 0;
     this->historyLength = globalHistory;
+    this->tableSize = tableSize;
     this->correct = 0;
     this->total = 0;
     this->debug = debug;
     this->theta = floor(1.93 * this->historyLength + 14);
 
     printf("------------------------------\n");
-    printf("Global history: %d\nThreshold: %d\n",this->historyLength, this->theta);
+    printf("Global history: %d\nThreshold: %d\nTable Size: %d\n",this->historyLength, this->theta, this->tableSize);
     printf("------------------------------\n");
 }
 
@@ -25,8 +26,8 @@ uint32_t Predictor::hashAddress(string address){
     istringstream converter(address);
     uint32_t conversion;
     converter >> std::hex >> conversion; 
-    conversion %= TABLE_SIZE;
-    return conversion ^ (this->history % TABLE_SIZE);
+    conversion %= this->tableSize;
+    return conversion ^ (this->history % this->tableSize);
 }
 
 void Predictor::makePrediction(string input, int expected){
